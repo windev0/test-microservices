@@ -9,7 +9,6 @@ export class UsersService {
   ) {}
 
   findAll() {
-    console.log('hi service');
     return this.usersClientService.send({ cmd: 'users.findAll' }, {});
   }
 }

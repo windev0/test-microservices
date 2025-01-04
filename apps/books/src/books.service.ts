@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { CreateBookDto } from './dto/create-book.dto';
-import { UpdateBookDto } from './dto/update-book.dto';
-import { Book } from './dto/book.dto';
+import { Book } from '@app/contracts/books/book.dto';
+import { CreateBookDto } from '@app/contracts/books/create-book.dto';
+import { UpdateBookDto } from '@app/contracts/books/update-book.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class BooksService {
@@ -38,15 +38,18 @@ export class BooksService {
   }
 
   findOne(id: string) {
-    return this._books.find((book) => book.id === id);
+    const book = this._books.find((book) => book.id === id);
+    if (!book) return 'no book found';
+    return book;
   }
 
   update(id: string, updateBookDto: UpdateBookDto) {
     const index = this._books.findIndex((book) => book.id === id);
     if (index >= 0) {
       this._books[index] = { ...this._books[index], ...updateBookDto };
+      return this._books[index];
     }
-    return this._books[index];
+    return null;
   }
 
   remove(id: string) {

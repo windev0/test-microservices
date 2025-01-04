@@ -12,7 +12,6 @@ export class UsersController {
   getUsers(): UserDTO[] {
     try {
       const users = this.usersService.findAll();
-      console.log('users', users);
       return users;
     } catch (error) {
       this.logger.error(`Error fetching users: ${error.message}`);

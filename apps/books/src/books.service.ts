@@ -26,10 +26,12 @@ export class BooksService {
     },
   ];
   create(createBookDto: CreateBookDto) {
-    this._books.push({
-      ...createBookDto,
-      id: (this._books.length + 1)?.toString(),
-    });
+    if (createBookDto) {
+      this._books.push({
+        id: (this._books.length + 1)?.toString(),
+        ...createBookDto,
+      });
+    }
     return this._books;
   }
 

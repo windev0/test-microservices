@@ -1,0 +1,25 @@
+
+@baseUrl = http://localhost:3030/books
+
+GET {{baseUrl}}
+
+###
+
+# @name addNewBook
+// @prompt title  The name of the book
+// @prompt author  The author of the book
+POST  http://localhost:3030/books
+content-type: application/json
+
+{
+    "title": "{{title}}" ,
+    "author": "{{author}}",
+    "publicationDate": "2025-01-07T22:59:04.013Z"
+}
+# < ./faker.data.json
+###
+
+@addBookResp = {{addNewBook.response.body.*}}
+GET {{baseUrl}}/{{addNewBook.response.body.$[10].id}}
+
+###
